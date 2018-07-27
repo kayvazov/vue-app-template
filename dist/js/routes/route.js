@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NotFound from '../components/global/NotFound.vue'
 
 Vue.use(VueRouter);
 
@@ -13,12 +14,12 @@ export default new VueRouter({
       component: Main,
       children: [
         {
-          path: '/', component: Home, meta: { title: 'Главная | Ресторан в Воронеже Мангал-House (Хаус)' },
+          path: '/'
         }
       ]
     },
     {
-      path: '*', component: NotFound, meta: { title: '404 ошибка! Такой страницы не существует' }
+      path: '*', component: NotFound
     }
   ],
   scrollBehavior () {
