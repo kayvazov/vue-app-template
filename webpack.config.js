@@ -1,11 +1,9 @@
 const webpack = require('webpack');
-const path = require('path');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports =  {
   entry: "./dist/js/index.js", // Откуда выводить
   output: {
-    filename: "./final/js/bundle.js"
+    filename: "./src/js/bundle.js"
   },
   devServer: {
     compress: true
@@ -66,7 +64,7 @@ module.exports =  {
   ],
   resolve: {
     alias: {
-      jquery: 'jquery/src/jquery',
+      // jquery: 'jquery/src/jquery',
       vue: 'vue/dist/vue.js'
     }
   },
