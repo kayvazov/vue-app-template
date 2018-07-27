@@ -1,0 +1,38 @@
+{
+  "env":{
+    "production":{
+      "presets": [
+        ["es2015", {"modules": false}],
+        "stage-0"
+      ],
+      "plugins": [
+        ["transform-runtime", {
+          "helpers": true,
+          "polyfill": true,
+          "regenerator": false,
+          "moduleName": "babel-runtime"
+        }]
+      ],
+      "minified": true
+    },
+    "development":{
+      "presets": [
+        ["es2015", {"modules": false}],
+        "stage-0"
+      ],
+      "plugins": [
+        ["transform-runtime", {
+          "helpers": true,
+          "polyfill": true,
+          "regenerator": false,
+          "moduleName": "babel-runtime"
+        }]
+      ]
+    },
+    "test": {
+      "presets": [
+        ["env", { "targets": { "node": "current" }}]
+      ]
+    }
+  }
+}
