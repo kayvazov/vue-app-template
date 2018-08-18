@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports =  {
   entry: "./dist/js/index.js", // Откуда выводить
@@ -35,16 +36,10 @@ module.exports =  {
           }
         ]
       }
-    ],
-    loaders: [
-      {
-        test: /\.html$/,
-        exclude: /node_modules/,
-        loaders: ['file-loader?name=[name].html', 'extract-loader', 'html-loader']
-      }
     ]
   },
   plugins: [
+    new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.ProvidePlugin({
       $: "jquery",
