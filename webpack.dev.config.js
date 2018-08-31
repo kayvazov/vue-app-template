@@ -2,13 +2,14 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports =  {
-  entry: "./dist/js/index.js", // Откуда выводить
+  entry: "./dist/js/index.js",
   output: {
     filename: "./src/js/bundle.js"
   },
   devServer: {
     compress: true
   },
+  mode: 'development',
   module: {
     rules: [
       {
@@ -59,7 +60,6 @@ module.exports =  {
   ],
   resolve: {
     alias: {
-      // jquery: 'jquery/src/jquery',
       vue: 'vue/dist/vue.js'
     }
   },

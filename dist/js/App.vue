@@ -1,8 +1,7 @@
 <script>
-  import Vue from 'vue'
   import Navbar from './components/global/Navbar.vue'
   import Footer from './components/global/Footer.vue'
-  import { VueMaskDirective } from 'v-mask'
+  import vueHeadful from 'vue-headful'
   export default {
     data() {
       return {
@@ -11,8 +10,8 @@
     },
     components: {
       'v-navigation': Navbar,
-      'v-footer': Footer
-
+      'v-footer': Footer,
+      'settings': vueHeadful
     }
   }
 </script>

@@ -1,15 +1,10 @@
 import Vue from 'vue'
-import App from './App.vue'
 import router from './routes/route'
 import './service-worker/index'
+import { VueMaskDirective } from 'v-mask'
+Vue.directive('mask', VueMaskDirective);
 new Vue({
   el: "#app",
   router,
-  render: h => h(App)
-});
-
-const route = router;
-route.beforeEach((to, from, next) => {
-  document.title = to.meta.title;
-  next()
+  render: h => h('router-view')
 });
