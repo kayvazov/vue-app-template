@@ -1,12 +1,11 @@
-html, body, .g-main {
+html, body {
   width: 100%;
   height: 100%;
   margin: 0;
-  font-weight: $f-reg;
   font-size: 14px;
   box-sizing: border-box;
   color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, 'reg', sans-serif !important;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   scroll-behavior:smooth;
@@ -29,20 +28,14 @@ input, button, textarea, select, option {
     outline: none;
   }
 }
-input {
-  &:focus {
-    border-bottom-color: $c-red;
-  }
-}
-b {
-  font-family: 'bold';
-}
 input, button, textarea {
-  font-family: 'reg';
   border-radius: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   &::-ms-expand {
     display: none;
   }
+}
+.g {
+
 }
