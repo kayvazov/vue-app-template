@@ -20,7 +20,6 @@ ul li {
   list-style-type: none;
 }
 a {
-  color: #ffffff;
   text-decoration: none;
 }
 input, button, textarea, select, option {
@@ -36,6 +35,14 @@ input, button, textarea {
     display: none;
   }
 }
-.g {
 
+// Demo styles
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+p {
+  color: #000;
+  font-size: 24px;
 }

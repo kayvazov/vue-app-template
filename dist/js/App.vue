@@ -18,7 +18,9 @@
 <template>
   <main>
     <v-navigation />
-    <router-view />
+    <p>
+      Vue & PWA template by <a href="https://vk.com/kenan_aivazov">Aivazov Kenan</a> ;3
+    </p>
     <v-footer />
   </main>
 </template>
