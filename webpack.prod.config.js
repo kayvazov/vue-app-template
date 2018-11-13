@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports =  {
   entry: "./dist/js/index.js",
   output: {
@@ -42,6 +43,11 @@ module.exports =  {
   plugins: [
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'dist/index.html',
+      minify: true,
+      filename: './index.html'
+    }),
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",

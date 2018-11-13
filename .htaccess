@@ -4,7 +4,7 @@
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule . /index.html [L]
+  RewriteRule . /dist/index.html [L]
 </IfModule>
 <IfModule mod_gzip.c>
 mod_gzip_on Yes
