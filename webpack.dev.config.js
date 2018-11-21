@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const SriPlugin = require('webpack-subresource-integrity');
 module.exports =  {
   entry: "./dist/js/index.js",
   output: {
@@ -37,17 +38,24 @@ module.exports =  {
             loader: 'svg-inline-loader'
           }
         ]
-      }
+      },
+	  {
+        test: /\.css$/,
+        use: [ 'style-loader', 'postcss-loader' ]
+      },
     ]
   },
   plugins: [
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
-      template: 'dist/index.html',
+      filename: './index.html',
+      template: './dist/index.template.ejs',
+      children: false,
       minify: true,
-      filename: 'index.html'
+      title: 'Vue & PWA app template',
     }),
+
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",

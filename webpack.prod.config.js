@@ -8,9 +8,6 @@ module.exports =  {
     filename: "../src/js/bundle.js"
   },
   mode: 'production',
-  devServer: {
-    compress: true
-  },
   module: {
     rules: [
       {
@@ -37,6 +34,10 @@ module.exports =  {
             loader: 'svg-inline-loader'
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: [ 'style-loader', 'postcss-loader' ]
       }
     ]
   },
@@ -44,9 +45,11 @@ module.exports =  {
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
-      template: 'dist/index.html',
+      filename: '../index.html',
+      template: './dist/index.template.ejs',
+      children: false,
       minify: true,
-      filename: './index.html'
+      title: 'Vue & PWA app template',
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
