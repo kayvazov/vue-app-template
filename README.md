@@ -1,9 +1,9 @@
 # Vue &amp; PWA app template
 
 ### Main commands
-```sh
-yarn``` - dowload dependencies
-yarn dev - Dev mode
-yarn sass - Compiling SASS to CSS
-yarn build - Build bundle.js
+
+```sh yarn ``` - dowload dependencies
+```sh yarn dev``` - Dev mode
+```sh yarn sass``` - Compiling SASS to CSS
+```sh yarn build``` - Build bundle.js
 
