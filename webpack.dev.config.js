@@ -2,14 +2,19 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const SriPlugin = require('webpack-subresource-integrity');
 module.exports =  {
   entry: "./dist/js/index.js",
   output: {
     filename: "./src/js/bundle.js"
   },
   devServer: {
-    compress: true
+    compress: true,
+    historyApiFallback: true
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
   },
   mode: 'development',
   module: {
@@ -48,14 +53,12 @@ module.exports =  {
   plugins: [
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new HtmlWebpackPlugin({
-      filename: './index.html',
-      template: './dist/index.template.ejs',
+    new webpack.NoEmitOnErrorsPlugin(),new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './index.template.ejs',
       children: false,
       minify: true,
-      title: 'Vue & PWA app template',
     }),
-
     new webpack.ProvidePlugin({
       $: "jquery",
       jQuery: "jquery",

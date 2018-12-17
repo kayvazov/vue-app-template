@@ -7,6 +7,11 @@ module.exports =  {
   output: {
     filename: "../src/js/bundle.js"
   },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    }
+  },
   mode: 'production',
   module: {
     rules: [
@@ -46,10 +51,8 @@ module.exports =  {
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: '../index.html',
-      template: './dist/index.template.ejs',
-      children: false,
       minify: true,
-      title: 'Vue & PWA app template',
+      template: './index.template.ejs',
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
