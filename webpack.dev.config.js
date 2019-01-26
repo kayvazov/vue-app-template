@@ -1,11 +1,17 @@
+const path = require('path');
 const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-module.exports =  {
-  entry: "./dist/js/index.js",
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+module.exports = {
+  entry: [
+    "./dist/js/index.js",
+  ],
   output: {
-    filename: "./src/js/bundle.js"
+    path: './src/',
+    filename: "js/bundle.js"
   },
   devServer: {
     compress: true,
@@ -18,11 +24,41 @@ module.exports =  {
   },
   mode: 'development',
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.vue$/,
         exclude: /node_modules/,
         loader: 'vue-loader'
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            publicPath: 'imgs'
+          }
+        }]
+      },
+      {
+        test: /\.(sass|scss)$/,
+        include: path.resolve(__dirname, 'dist/scss'),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [{
+              loader: 'css-loader',
+
+            },
+            {
+              loader: "resolve-url-loader"
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            }
+          ]
+        })
       },
       {
         test: /\.js?$/,
@@ -30,30 +66,33 @@ module.exports =  {
         loader: 'babel-loader'
       },
       {
-        test: /\.(ttf|otf|woff|woff2|eot)$/,
-        loader: 'url-loader'
+        test: /\.(gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+        },
       },
       {
         test: /\.svg$/,
-        use: [
-          {
-            loader: 'svg-loader'
-          },
-          {
-            loader: 'svg-inline-loader'
-          }
-        ]
+        use: [{
+          loader: 'svg-loader'
+        }, ]
       },
-	  {
+      {
         test: /\.css$/,
-        use: [ 'style-loader', 'postcss-loader' ]
+        use: ['style-loader', 'postcss-loader']
       },
     ]
   },
   plugins: [
+    new ExtractTextPlugin({
+      filename: 'src/css/main.css',
+      allChunks: true
+    }),
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),new HtmlWebpackPlugin({
+    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './index.template.ejs',
       children: false,
@@ -77,7 +116,9 @@ module.exports =  {
   ],
   resolve: {
     alias: {
-      vue: 'vue/dist/vue.js'
+      vue: 'vue/dist/vue.js',
+      img: path.resolve(__dirname, 'dist/imgs/'),
+      icon: path.resolve(__dirname, 'dist/icons')
     }
   },
   node: {

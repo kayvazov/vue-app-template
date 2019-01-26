@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<title>Vue & PWA app</title>
 	<!-- Links -->
 	<link rel="manifest" href="">
-	<link rel="stylesheet" href="./src/css/index.css">
 	<link rel="cannonical" href="">
 	<link rel="dns-prefetch" href="">
 	<!-- Meta tags -->
@@ -54,14 +54,25 @@
 	<link rel="apple-touch-icon" sizes="152x152" href="">
 	<link rel="apple-touch-icon" sizes="180x180" href="">
 </head>
+
 <body>
-<noscript>
-	<div class="g-js">
-		Извините, но данный сайт не может работать без JavaScript
-		<a href="https://help.rambler.ru/common/1205/?p=mail">Узнать, как включить JavaScript в браузере</a>
-	</div>
-</noscript>
-<main id="app"></main>
-<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').then(function(reg){console.log('Работает')}).catch(function(err){console.log('Херня произошла',err)})}</script>
+	<noscript>
+		<div class="g-js">
+			Извините, но данный сайт не может работать без JavaScript
+			<a href="https://help.rambler.ru/common/1205/?p=mail">Узнать, как включить JavaScript в браузере</a>
+		</div>
+	</noscript>
+	<main id="app"></main>
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('sw.js').then(function (reg) {
+				console.log('Работает')
+			}).catch(function (err) {
+				console.log('Херня произошла', err)
+			})
+		}
+	</script>
+	<!-- delete upper line for remove PWA in your page & delete sw.js and sw-toolbox.js -->
 </body>
+
 </html>

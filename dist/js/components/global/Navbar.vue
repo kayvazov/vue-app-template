@@ -1,15 +1,8 @@
 <script>
-  export default {
-    data() {
-      return {
-
-      }
-    },
-    created() {
-
-    }
-  }
+export default {
+  data: () => ({})
+};
 </script>
 <template>
-
+  <nav></nav>
 </template>

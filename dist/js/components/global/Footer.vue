@@ -1,18 +1,8 @@
 <script>
-  export default {
-    data() {
-      return {
-
-      }
-    },
-    components: {
-
-    },
-    methods: {
-
-    }
-  }
+export default {
+  data: () => ({})
+};
 </script>
 <template>
-
+  <footer></footer>
 </template>
