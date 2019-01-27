@@ -6,8 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: [
-    "./dist/js/index.js",
-    "./dist/scss/index.scss"
+    "./dist/js/index.js"
   ],
   output: {
     filename: "./src/js/bundle.js"
@@ -70,9 +69,7 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         use: [{
           loader: 'file-loader',
-          options: {
-            name: './src/imgs/[name].[ext]',
-          }
+
         }]
       },
     ]

@@ -26,3 +26,6 @@ typings/
 .env
 .next
 .lock
+src/icons/technology.svg
+src/imgs/technology.png
+
