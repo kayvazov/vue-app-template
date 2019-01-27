@@ -7,8 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: [
-    "./dist/js/index.js",
-    './dist/scss/index.scss'
+    "./dist/js/index.js"
   ],
   output: {
     path: path.resolve(__dirname, './src'),
