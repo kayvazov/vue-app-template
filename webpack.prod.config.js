@@ -28,20 +28,17 @@ module.exports = {
         loader: 'vue-loader'
       },
       {
-        test: /\.(sass|scss)$/,
-        include: path.resolve(__dirname, 'src/scss'),
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract({
-          use: [{
-              loader: 'css-loader',
+          fallback: 'style-loader',
+          use: [
+            'postcss-loader',
+            'css-validator-loader',
+            {
+              loader: 'sass-loader',
               options: {
-                url: true
+                outputStyle: 'expanded'
               }
-            },
-            {
-              loader: "resolve-url-loader"
-            },
-            {
-              loader: 'sass-loader'
             }
           ]
         })
@@ -57,8 +54,7 @@ module.exports = {
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: './dist/imgs',
-            publicPath: './src/imgs'
+
           }
         }]
       },
@@ -107,7 +103,10 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: '../index.html',
-      minify: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true
+      },
       template: './index.template.ejs',
     }),
     new webpack.ProvidePlugin({

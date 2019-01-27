@@ -3,15 +3,14 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
   entry: [
     "./dist/js/index.js",
+    "./dist/scss/index.scss"
   ],
   output: {
-    path: './src/',
-    filename: "js/bundle.js"
+    filename: "./src/js/bundle.js"
   },
   devServer: {
     compress: true,
@@ -30,31 +29,16 @@ module.exports = {
         loader: 'vue-loader'
       },
       {
-        test: /\.(png|jpg|gif)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            publicPath: 'imgs'
-          }
-        }]
-      },
-      {
-        test: /\.(sass|scss)$/,
-        include: path.resolve(__dirname, 'dist/scss'),
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [{
-              loader: 'css-loader',
-
-            },
-            {
-              loader: "resolve-url-loader"
-            },
+          use: [
+            'postcss-loader',
+            'css-validator-loader',
             {
               loader: 'sass-loader',
               options: {
-                sourceMap: true
+                outputStyle: 'expanded'
               }
             }
           ]
@@ -82,11 +66,20 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'postcss-loader']
       },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: './src/imgs/[name].[ext]',
+          }
+        }]
+      },
     ]
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: 'src/css/main.css',
+      filename: './dist/css/main.css',
       allChunks: true
     }),
     new VueLoaderPlugin(),
@@ -117,8 +110,8 @@ module.exports = {
   resolve: {
     alias: {
       vue: 'vue/dist/vue.js',
-      img: path.resolve(__dirname, 'dist/imgs/'),
-      icon: path.resolve(__dirname, 'dist/icons')
+      '$img': path.resolve('dist/imgs'),
+      'icon': path.resolve(__dirname, 'dist/icons')
     }
   },
   node: {
