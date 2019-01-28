@@ -2,7 +2,7 @@
 
 ### Main commands
 
-```yarn``` - dowload dependencies  
-```yarn dev``` - Dev mode  
-```yarn build``` - Build project  
+```yarn or npm i ( install )``` - dowload dependencies  
+```yarn dev or npm run dev``` - Dev mode  
+```yarn build or npm run build``` - Build project  
 ```../imgs/img.png``` - path for imgs ( SCSS )  
