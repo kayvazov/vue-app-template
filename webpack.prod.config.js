@@ -85,6 +85,12 @@ module.exports = {
       filename: 'css/main.[hash].css',
       allChunks: true
     }),
+     
+    new webpack.HashedModuleIdsPlugin({
+      hashFunction: 'md4',
+      hashDigest: 'base64',
+      hashDigestLength: 4,
+    }),
     new CopyWebpackPlugin([{
         from: './dist/fonts',
         to: '../src/fonts'
