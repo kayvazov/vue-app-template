@@ -11,12 +11,19 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, './src'),
-    filename: "js/app.[hash].js",
+    filename: "js/[name].js",
     publicPath: './src'
   },
   optimization: {
     splitChunks: {
-      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          name: 'vendor',
+          test: /node_modules/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
     }
   },
   mode: 'production',
