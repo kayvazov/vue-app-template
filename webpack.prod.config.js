@@ -3,23 +3,40 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+
+const PUBLIC_PATH = 'URL';
+
 module.exports = {
   entry: [
-    "./dist/js/index.js"
+    "./src/js/index.js",
+    './src/scss/index.scss'
   ],
   output: {
-    path: path.resolve(__dirname, './src'),
-    filename: "js/[name].js",
-    publicPath: './src'
+    path: path.resolve(__dirname, './dist'),
+    filename: "js/[name].[hash:5].js",
   },
   optimization: {
+    minimizer: [new TerserJSPlugin({})],
     splitChunks: {
       cacheGroups: {
         vendor: {
           name: 'vendor',
           test: /node_modules/,
+          chunks: 'all',
+          enforce: true
+        },
+        global: {
+          name: 'global',
+          test: /global/,
+          chunks: 'all',
+          enforce: true
+        },
+        pages: {
+          name: 'pages',
+          test: /pages/,
           chunks: 'all',
           enforce: true
         }
@@ -28,89 +45,62 @@ module.exports = {
   },
   mode: 'production',
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.vue$/,
         exclude: /node_modules/,
         loader: 'vue-loader'
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'postcss-loader',
-            'css-validator-loader',
-            {
-              loader: 'sass-loader',
-              options: {
-                outputStyle: 'expanded'
-              }
+        use:  [
+          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              url: true,
             }
-          ]
-        })
+          },
+          'postcss-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.js?$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
+      // fonts
       {
-        test: /\.(png|jpg|gif)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-
-          }
-        }]
-      },
-      {
-        test: /\.(gif|svg|eot|ttf|woff|woff2)$/,
+        test: /\.(woff|woff2)$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 1,
+          publicPath: 'fonts',
+          outputPath: 'fonts',
+          name: '[name].[sha1:hash:base64:5].[ext]'
         },
       },
       {
-        test: /\.svg$/,
-        use: [{
-            loader: 'svg-loader'
-          },
-          {
-            loader: 'svg-inline-loader'
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'postcss-loader']
+        test: /\.(svg|png|jpg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 1,
+          publicPath: 'imgs',
+          outputPath: 'imgs',
+          name: '[name].[sha1:hash:base64:5].[ext]'
+        },
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: 'css/main.[hash].css',
-      allChunks: true
+    new MiniCssExtractPlugin({
+      filename: 'main.[hash:4].css'
     }),
-     
-    new webpack.HashedModuleIdsPlugin({
-      hashFunction: 'md4',
-      hashDigest: 'base64',
-      hashDigestLength: 4,
-    }),
-    new CopyWebpackPlugin([{
-        from: './dist/fonts',
-        to: '../src/fonts'
-      },
-      {
-        from: './dist/icons',
-        to: '../src/icons'
-      },
-      {
-        from: './dist/imgs',
-        to: '../src/imgs'
-      }
-    ]),
+
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
@@ -135,9 +125,25 @@ module.exports = {
           beautify: false
         }
       }
-    })
+    }),
+    new SWPrecacheWebpackPlugin(
+      {
+        cacheId: 'sw-booking-rest',
+        dontCacheBustUrlsMatching: /\.\w{8}\./,
+        filename: 'service-worker.js',
+        filepath: 'service-worker.js',
+        minify: true,
+        staticFileGlobs: [
+          'index.html',
+          'dist/**/**.*'
+        ],
+        navigateFallback: PUBLIC_PATH + '/',
+        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      }
+    ),
   ],
   resolve: {
+    extensions: [".js", ".vue", ".json"],
     alias: {
       vue: 'vue/dist/vue.js',
       img: path.resolve(__dirname, 'src/imgs'),

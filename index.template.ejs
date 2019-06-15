@@ -1,9 +1,16 @@
 <!doctype html>
 <html lang="en">
-
 <head>
 	<title>Vue & PWA app</title>
 	<!-- Links -->
+	<% htmlWebpackPlugin.files.js.forEach(function(item) { %>
+		<link rel="preload" as="script" href="<%= item %>">
+		<link rel="prefetch" as="script" href="<%= item %>">
+	<% }) %>
+	<% htmlWebpackPlugin.files.css.forEach(function(item) { %>
+		<link rel="preload" as="style" href="<%= item %>">
+		<link rel="prefetch" as="style" href="<%= item %>">
+	<% }) %>
 	<link rel="manifest" href="">
 	<link rel="cannonical" href="">
 	<link rel="dns-prefetch" href="">
@@ -12,6 +19,9 @@
 	<meta name="description" content="">
 	<meta name="image" content="">
 	<meta http-equiv="x-dns-prefetch-control" content="on">
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 	<!-- Schema.org -->
 	<meta itemprop="name" content="">
 	<meta itemprop="description" content="">
@@ -29,7 +39,7 @@
 	<meta name="og:locale" content="ru_RU">
 	<meta name="og:type" content="website">
 	<!-- Other meta-tags -->
-	<meta name="theme-color" content="">
+	<meta name="theme-color" content="#49bda3">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="cache-control" content="">
@@ -56,23 +66,23 @@
 </head>
 
 <body>
-	<noscript>
-		<div class="g-js">
-			Извините, но данный сайт не может работать без JavaScript
-			<a href="https://help.rambler.ru/common/1205/?p=mail">Узнать, как включить JavaScript в браузере</a>
-		</div>
-	</noscript>
-	<main id="app"></main>
-	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('sw.js').then(function (reg) {
-				console.log('Работает')
-			}).catch(function (err) {
-				console.log('Херня произошла', err)
-			})
-		}
-	</script>
-	<!-- delete upper line for remove PWA in your page & delete sw.js and sw-toolbox.js -->
+<noscript>
+	<div class="g-js">
+		Извините, но данный сайт не может работать без JavaScript
+		<a href="https://help.rambler.ru/common/1205/?p=mail">Узнать, как включить JavaScript в браузере</a>
+	</div>
+</noscript>
+<main id="app"></main>
+<script>
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('service-worker.js').then(function (reg) {
+			console.log('Работает')
+		}).catch(function (err) {
+			console.log('Херня произошла', err)
+		})
+	}
+</script>
+
 </body>
 
 </html>

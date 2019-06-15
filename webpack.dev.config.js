@@ -3,45 +3,79 @@ const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const TerserJSPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
   entry: [
-    "./dist/js/index.js"
+    "./src/js/index.js",
+    './src/scss/index.scss'
   ],
   output: {
-    filename: "./src/js/bundle.js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/[name].js'
   },
   devServer: {
     compress: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    https: true
   },
   optimization: {
+    minimizer: [new TerserJSPlugin({})],
     splitChunks: {
-      chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          name: 'vendor',
+          test: /node_modules/,
+          chunks: 'all',
+          enforce: true
+        },
+        global: {
+          name: 'global',
+          test: /global/,
+          chunks: 'all',
+          enforce: true
+        },
+        pages: {
+          name: 'pages',
+          test: /pages/,
+          chunks: 'all',
+          enforce: true
+        },
+
+      }
     }
   },
   mode: 'development',
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.vue$/,
         exclude: /node_modules/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: ''
+          }
+        }
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            'postcss-loader',
-            'css-validator-loader',
-            {
-              loader: 'sass-loader',
-              options: {
-                outputStyle: 'expanded'
-              }
+        use:  [
+          'style-loader',
+          MiniCssExtractPlugin.loader,
+          // работаем с @import и url()
+          {
+            loader: 'css-loader',
+            options: {
+
             }
-          ]
-        })
+          },
+          // далее, по .css файлу проходиться postcss-loader да бы, проставить все нужные полифиллы и префиксы к свойствам
+          'postcss-loader',
+          // в начале sass-loader переводить .scss файл в .css
+          'sass-loader'
+        ]
       },
       {
         test: /\.js?$/,
@@ -49,35 +83,17 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(gif|svg|eot|ttf|woff|woff2)$/,
+        test: /\.(gif|svg|eot|ttf|woff|woff2|png|jpg)$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 1,
         },
-      },
-      {
-        test: /\.svg$/,
-        use: [{
-          loader: 'svg-loader'
-        }, ]
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'postcss-loader']
-      },
-      {
-        test: /\.(png|jpg|gif)$/,
-        use: [{
-          loader: 'file-loader',
-
-        }]
       },
     ]
   },
   plugins: [
-    new ExtractTextPlugin({
-      filename: './dist/css/main.css',
-      allChunks: true
+    new MiniCssExtractPlugin({
+      filename: 'main.[hash:4].css',
     }),
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
@@ -86,7 +102,6 @@ module.exports = {
       filename: 'index.html',
       template: './index.template.ejs',
       children: false,
-      minify: true,
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -105,10 +120,9 @@ module.exports = {
     })
   ],
   resolve: {
+    extensions: [".js", ".vue", ".json"],
     alias: {
       vue: 'vue/dist/vue.js',
-      '$img': path.resolve('dist/imgs'),
-      'icon': path.resolve(__dirname, 'dist/icons')
     }
   },
   node: {

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import App from '../App.vue'
-import NotFound from '../components/global/NotFound.vue'
-import Main from '../components/pages/Main.vue'
+import App from '../App'
+import NotFound from '../components/global/NotFound'
+import Main from '../components/pages/Main'
 
 Vue.use(VueRouter);
 

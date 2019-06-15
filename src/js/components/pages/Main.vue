@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <section>
+  <section class="g-main">
     <p>
       Vue & PWA template by
       <a href="https://vk.com/kenan_aivazov">Ayvazov Kenan</a> ;3
@@ -13,3 +13,4 @@ export default {
     <div class="png"></div>
   </section>
 </template>
+
