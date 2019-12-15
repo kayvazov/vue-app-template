@@ -18,7 +18,7 @@ module.exports = {
   devServer: {
     compress: true,
     historyApiFallback: true,
-    https: true
+    //https: true for https
   },
   optimization: {
     minimizer: [new TerserJSPlugin({})],
@@ -60,7 +60,7 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/,
+        test: /\.s(c|a)ss$/,
         use:  [
           'style-loader',
           MiniCssExtractPlugin.loader,
@@ -74,7 +74,16 @@ module.exports = {
           // далее, по .css файлу проходиться postcss-loader да бы, проставить все нужные полифиллы и префиксы к свойствам
           'postcss-loader',
           // в начале sass-loader переводить .scss файл в .css
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                fiber: require('fibers'),
+                indentedSyntax: true // optional
+              },
+            }
+          }
         ]
       },
       {

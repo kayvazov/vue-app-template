@@ -27,3 +27,4 @@ typings/
 .next
 .lock
 .idea
+*.lock

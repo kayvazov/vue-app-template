@@ -52,20 +52,30 @@ module.exports = {
         loader: 'vue-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.s(c|a)ss$/,
         use:  [
           'style-loader',
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
+          MiniCssExtractPlugin.loader,
+          // работаем с @import и url()
           {
             loader: 'css-loader',
             options: {
-              url: true,
+
             }
           },
+          // далее, по .css файлу проходиться postcss-loader да бы, проставить все нужные полифиллы и префиксы к свойствам
           'postcss-loader',
-          'sass-loader'
+          // в начале sass-loader переводить .scss файл в .css
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+              sassOptions: {
+                fiber: require('fibers'),
+                indentedSyntax: true // optional
+              },
+            }
+          }
         ]
       },
       {
