@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const PUBLIC_PATH = 'URL';
 
@@ -55,7 +56,12 @@ module.exports = {
         test: /\.s(c|a)ss$/,
         use:  [
           'style-loader',
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            }
+          },
           // работаем с @import и url()
           {
             loader: 'css-loader',
@@ -99,7 +105,7 @@ module.exports = {
         loader: 'url-loader',
         options: {
           limit: 1,
-          publicPath: 'imgs',
+          publicPath: '',
           outputPath: 'imgs',
           name: '[name].[sha1:hash:base64:5].[ext]'
         },
@@ -108,7 +114,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'main.[hash:4].css'
+      filename: 'css/main.[hash:4].css',
     }),
 
     new VueLoaderPlugin(),
@@ -136,6 +142,7 @@ module.exports = {
         }
       }
     }),
+    new BundleAnalyzerPlugin(),
     new SWPrecacheWebpackPlugin(
       {
         cacheId: 'sw-booking-rest',
@@ -155,9 +162,9 @@ module.exports = {
   resolve: {
     extensions: [".js", ".vue", ".json"],
     alias: {
-      vue: 'vue/dist/vue.js',
-      img: path.resolve(__dirname, 'src/imgs'),
-      icon: path.resolve(__dirname, 'src/icons')
+      vue: 'vue/dist/vue.min.js',
+      'vue-router': 'vue-router/dist/vue-router.min.js',
+      'vuex': 'vuex/dist/vuex.min.js'
     }
   },
   node: {

@@ -24,6 +24,7 @@ module.exports = {
     minimizer: [new TerserJSPlugin({})],
     splitChunks: {
       cacheGroups: {
+        // js splitting
         vendor: {
           name: 'vendor',
           test: /node_modules/,
@@ -42,7 +43,8 @@ module.exports = {
           chunks: 'all',
           enforce: true
         },
-
+        // css splitting
+        // future :)
       }
     }
   },
@@ -60,10 +62,18 @@ module.exports = {
         }
       },
       {
-        test: /\.s(c|a)ss$/,
+        test: /\.(sa|sc|c)ss$/,
         use:  [
           'style-loader',
-          MiniCssExtractPlugin.loader,
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+              hmr: true,
+              // force reload
+              reloadAll: true,
+            }
+          },
           // работаем с @import и url()
           {
             loader: 'css-loader',
@@ -92,17 +102,30 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.(gif|svg|eot|ttf|woff|woff2|png|jpg)$/,
+        test: /\.(woff|woff2)$/,
         loader: 'url-loader',
         options: {
           limit: 1,
+          publicPath: 'fonts',
+          name: '[name].[sha1:hash:base64:5].[ext]'
         },
       },
+      {
+        test: /\.(svg|png|jpg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 1,
+          publicPath: '',
+          outputPath: 'imgs',
+          name: '[name].[sha1:hash:base64:5].[ext]'
+        },
+      }
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'main.[hash:4].css',
+      filename: 'css/main.[hash:4].css',
+      chunkFilename: 'css/[name].[hash:4].css'
     }),
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
