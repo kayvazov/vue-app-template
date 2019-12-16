@@ -5,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: [
@@ -64,7 +65,6 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use:  [
-          'style-loader',
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
@@ -123,6 +123,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/main.[hash:4].css',
       chunkFilename: 'css/[name].[hash:4].css'
@@ -154,7 +155,9 @@ module.exports = {
   resolve: {
     extensions: [".js", ".vue", ".json"],
     alias: {
-      vue: 'vue/dist/vue.js',
+      vue: 'vue/dist/vue.min.js',
+      'vue-router': 'vue-router/dist/vue-router.min.js',
+      'vuex': 'vuex/dist/vuex.min.js'
     }
   },
   node: {
