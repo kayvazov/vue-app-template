@@ -13,10 +13,12 @@ export default new VueRouter({
   routes: [{
       path: '/',
       component: App,
-      children: [{
-        path: '/',
-        component: Main
-      }]
+      children: [
+        {
+          path: '/',
+          component: Main
+        }
+      ]
     },
     {
       path: '*',

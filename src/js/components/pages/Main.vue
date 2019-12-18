@@ -1,6 +1,11 @@
 <script>
 export default {
-  data: () => ({})
+  data: () => ({}),
+  computed: {
+    takeItem() {
+      return this.$store.state.oneItem
+    }
+  }
 };
 </script>
 
@@ -8,7 +13,8 @@ export default {
   <section class="g-main">
     <p>
       Vue & PWA template by
-      <a href="https://vk.com/kenan_aivazov">Ayvazov Kenan</a> ;3
+      <a href="https://kenan.agency">Ayvazov Kenan</a> ;3
+      {{ takeItem }}
     </p>
     <div class="png"></div>
   </section>

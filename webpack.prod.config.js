@@ -50,7 +50,16 @@ module.exports = {
       {
         test: /\.vue$/,
         exclude: /node_modules/,
-        loader: 'vue-loader'
+        loader: 'vue-loader',
+      },
+      {
+        test: /\.css$/i,
+        loader: 'css-loader',
+        options: {
+          modules: {
+            localIdentName: '[hash:base64:5]_[hash:base64:2]',
+          },
+        },
       },
       {
         test: /\.s(c|a)ss$/,
@@ -65,7 +74,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-
+              modules: 'global'
             }
           },
           // далее, по .css файлу проходиться postcss-loader да бы, проставить все нужные полифиллы и префиксы к свойствам
@@ -161,7 +170,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".vue", ".json"],
     alias: {
-      vue: 'vue/dist/vue.min.js',
+      vue: 'vue/dist/vue.runtime.min.js',
       'vue-router': 'vue-router/dist/vue-router.min.js',
       'vuex': 'vuex/dist/vuex.min.js'
     }

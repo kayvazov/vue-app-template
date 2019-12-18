@@ -155,7 +155,7 @@ module.exports = {
   resolve: {
     extensions: [".js", ".vue", ".json"],
     alias: {
-      vue: 'vue/dist/vue.min.js',
+      vue: 'vue/dist/vue.runtime.min.js',
       'vue-router': 'vue-router/dist/vue-router.min.js',
       'vuex': 'vuex/dist/vuex.min.js'
     }

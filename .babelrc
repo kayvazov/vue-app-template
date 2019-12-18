@@ -6,7 +6,7 @@
         "useBuiltIns": false,
         "corejs": 3,
         "modules": false,
-        "loose": true,
+        "loose": false,
         "targets": {
           "browsers": [
             ">1%",
