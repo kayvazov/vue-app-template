@@ -56,9 +56,7 @@ module.exports = {
         test: /\.css$/i,
         loader: 'css-loader',
         options: {
-          modules: {
-            localIdentName: '[hash:base64:5]_[hash:base64:2]',
-          },
+
         },
       },
       {
