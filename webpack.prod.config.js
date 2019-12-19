@@ -177,6 +177,8 @@ module.exports = {
     module: 'empty',
     fsevents: 'empty',
     net: 'empty',
-    tls: 'empty'
+    tls: 'empty',
+    setImmediate: false,
+    process: false
   }
 };
