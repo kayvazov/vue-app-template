@@ -3,9 +3,9 @@ module.exports = {
   plugins: {
     'postcss-flexbugs-fixes': {},
     'postcss-mq-keyframes': {},
-    'css-mqpacker': {sort: true},
+    'css-mqpacker': { sort: true },
     'autoprefixer': {
-      browsers: ['> 2%', 'last 6 versions', 'not ie <= 11'],
+      overrideBrowsersList: ['> 2%', 'last 6 versions', 'not ie <= 11'],
       cascade: false,
       flexbox: 'no-2009'
     },
