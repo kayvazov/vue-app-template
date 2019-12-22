@@ -1,4 +1,13 @@
-defaults
-not IE 11
-not IE_Mob 11
-maintained node versions
+> 0.4%,
+not IE 11,
+not OperaMini all,
+not IE_Mob 11,
+edge >= 12,
+chrome >= 30,
+Samsung > 9.2,
+chromeandroid >= 58,
+android >= 10,
+ff >= 60,
+safari >= 11.1,
+ios >= 11.1,
+opera >= 62

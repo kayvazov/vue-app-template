@@ -5,7 +5,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   entry: [
@@ -123,7 +122,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/main.[hash:4].css',
       chunkFilename: 'css/[name].[hash:4].css'

@@ -54,10 +54,15 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        loader: 'css-loader',
-        options: {
-
-        },
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            }
+          },
+          'css-loader'
+        ]
       },
       {
         test: /\.s(c|a)ss$/,
