@@ -2,23 +2,14 @@
 <html lang="en">
 <head>
 	<title>Vue & PWA app</title>
-	<!-- Links -->
-	<% htmlWebpackPlugin.files.js.forEach(function(item) { %>
-		<link rel="preload" as="script" href="<%= item %>">
-		<link rel="prefetch" as="script" href="<%= item %>">
-	<% }) %>
-	<% htmlWebpackPlugin.files.css.forEach(function(item) { %>
-		<link rel="preload" as="style" href="<%= item %>">
-		<link rel="prefetch" as="style" href="<%= item %>">
-	<% }) %>
-	<link rel="manifest" href="">
-	<link rel="cannonical" href="">
-	<link rel="dns-prefetch" href="">
+	<link rel="manifest" href=""> <!-- Manifest -->
+	<link rel="dns-prefetch" href=""> <!-- DNS prefetch CDN/something else ( to increase performance ( ms ) ) -->
+
 	<!-- Meta tags -->
 	<meta charset="UTF-8">
 	<meta name="description" content="">
 	<meta name="image" content="">
-	<meta http-equiv="x-dns-prefetch-control" content="on">
+	<meta http-equiv="x-dns-prefetch-control" content="on"> <!-- working with dns-prefetch link -->
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -39,7 +30,7 @@
 	<meta name="og:locale" content="ru_RU">
 	<meta name="og:type" content="website">
 	<!-- Other meta-tags -->
-	<meta name="theme-color" content="#49bda3">
+	<meta name="theme-color" content="#000"> <!-- Mobile tab color -->
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="cache-control" content="">
@@ -63,17 +54,21 @@
 	<link rel="apple-touch-icon" sizes="144x144" href="">
 	<link rel="apple-touch-icon" sizes="152x152" href="">
 	<link rel="apple-touch-icon" sizes="180x180" href="">
+	<!-- preload vendor bundle -->
+	<link rel="preload" as="script" href="<%= htmlWebpackPlugin.files.js[0] %>">
+	<link rel="prefetch" as="script" href="<%= htmlWebpackPlugin.files.js[0] %>">
 </head>
 
 <body>
 <noscript>
 	<div class="g-js">
-		Извините, но данный сайт не может работать без JavaScript
-		<a href="https://help.rambler.ru/common/1205/?p=mail">Узнать, как включить JavaScript в браузере</a>
+		Sorry, but this site don't work without Javascript.
+		<a href="https://www.enable-javascript.com/" target="_blank">Learn how to enable Javascript</a>
 	</div>
 </noscript>
 <main id="app"></main>
 <script>
+	<!-- PWA register -->
 	if ('serviceWorker' in navigator) {
 		navigator.serviceWorker.register('service-worker.js').then(function (reg) {
 			console.log('Работает')

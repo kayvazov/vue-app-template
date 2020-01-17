@@ -1,12 +1,20 @@
 <script>
-export default {
-  data: () => ({}),
-  computed: {
-    takeItem() {
-      return this.$store.state.oneItem
+  import { mapState } from 'vuex';
+  export default {
+    data: () => ({}),
+    computed: {
+      /*
+      * testStateItem - computed function name
+      * state.draft - "draft" is a module name. We "open" him to take value
+      */
+      ...mapState({
+        testStateItem: state => state.draft.test
+      })
+    },
+    mounted() {
+
     }
-  }
-};
+  };
 </script>
 
 <template>
@@ -14,7 +22,7 @@ export default {
     <p>
       Vue & PWA template by
       <a href="https://kenan.agency">Ayvazov Kenan</a> ;3
-      {{ takeItem }}
+      {{ testStateItem }}
     </p>
     <div class="png"></div>
   </section>

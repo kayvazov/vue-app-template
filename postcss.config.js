@@ -5,9 +5,22 @@ module.exports = {
     'postcss-mq-keyframes': {},
     'css-mqpacker': {sort: true},
     'autoprefixer': {
-      browsers: ['> 2%', 'last 6 versions', 'not ie <= 11'],
+      browsers: [
+        "> 0.4%",
+        "not IE 11",
+        "not OperaMini all",
+        "not IE_Mob 11",
+        "edge >= 12",
+        "chrome >= 30",
+        "Samsung > 9.2",
+        "chromeandroid >= 58",
+        "android >= 10",
+        "ff >= 60",
+        "safari >= 11.1",
+        "ios >= 11.1",
+        "opera >= 62"
+        ],
       cascade: false,
-      flexbox: 'no-2009'
     },
     'postcss-csso': {
       restructure: true,
@@ -16,4 +29,4 @@ module.exports = {
       comments: 'none'
     }
   }
-}
+};
