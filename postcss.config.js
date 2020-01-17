@@ -3,9 +3,9 @@ module.exports = {
   plugins: {
     'postcss-flexbugs-fixes': {},
     'postcss-mq-keyframes': {},
-    'css-mqpacker': {sort: true},
+    'css-mqpacker': { sort: true },
     'autoprefixer': {
-      browsers: [
+      overrideBrowsersList: [
         "> 0.4%",
         "not IE 11",
         "not OperaMini all",
@@ -19,7 +19,7 @@ module.exports = {
         "safari >= 11.1",
         "ios >= 11.1",
         "opera >= 62"
-        ],
+      ],
       cascade: false,
     },
     'postcss-csso': {
@@ -29,4 +29,4 @@ module.exports = {
       comments: 'none'
     }
   }
-};
+}
