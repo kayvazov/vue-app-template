@@ -7,7 +7,7 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // config parts
-const Workbox = require('./configs/webpack-workbox.js');
+const Workbox = require('./configs/workbox.js');
 
 const PUBLIC_PATH = 'URL';
 
