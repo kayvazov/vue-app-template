@@ -5,8 +5,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// config parts
+const Workbox = require('./configs/webpack-workbox.js');
 
 const PUBLIC_PATH = 'URL';
 
@@ -112,11 +113,21 @@ module.exports = {
         },
       },
       {
-        test: /\.(svg|png|jpg)$/,
+        test: /\.(svg)$/,
         loader: 'url-loader',
         options: {
           limit: 1,
-          publicPath: '',
+          publicPath: 'dist/icons',
+          outputPath: 'icons',
+          name: '[name].[sha1:hash:base64:5].[ext]'
+        },
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 1,
+          publicPath: 'dist/imgs',
           outputPath: 'imgs',
           name: '[name].[sha1:hash:base64:5].[ext]'
         },
@@ -131,12 +142,34 @@ module.exports = {
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
-      filename: '../index.html',
       minify: {
         removeComments: true,
         collapseWhitespace: true
       },
-      template: './index.template.ejs',
+      filename: '../index.html',
+      template: './src/template/index.template.ejs',
+      children: false,
+      // template info
+      manifest: './dist/pwa/manifest.json',
+      icon: {
+        shortcut: './dist/site-icon/app-logo.png',
+        apple: {
+          '57x57': './dist/site-icon/app-logo.png',
+          '60x60': './dist/site-icon/app-logo.png',
+          '72x72': './dist/site-icon/app-logo.png',
+          '76x76': './dist/site-icon/app-logo.png',
+          '114x114': './dist/site-icon/app-logo.png',
+          '120x120': './dist/site-icon/app-logo.png',
+          '144x144': './dist/site-icon/app-logo.png',
+          '152x152': './dist/site-icon/app-logo.png',
+          '180x180': './dist/site-icon/app-logo.png',
+        }
+      },
+      meta: {
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur at blanditiis consectetur cupiditate dignissimos esse, fugiat illum laudantium nihil, nisi numquam obcaecati officiis optio placeat, quas quasi sequi soluta voluptatibus?',
+        title: 'Vue & PWA app',
+        url: '//your-site-link.com'
+      }
     }),
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -153,29 +186,17 @@ module.exports = {
         }
       }
     }),
-    new BundleAnalyzerPlugin(),
-    new SWPrecacheWebpackPlugin(
-      {
-        cacheId: 'sw-booking-rest',
-        dontCacheBustUrlsMatching: /\.\w{8}\./,
-        filename: 'service-worker.js',
-        filepath: 'service-worker.js',
-        minify: true,
-        staticFileGlobs: [
-          'index.html',
-          'dist/**/**.*'
-        ],
-        navigateFallback: PUBLIC_PATH + '/',
-        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      }
-    ),
+    //new BundleAnalyzerPlugin(),
+    //Workbox
   ],
   resolve: {
     extensions: [".js", ".vue", ".json"],
     alias: {
       vue: 'vue/dist/vue.runtime.min.js',
       'vue-router': 'vue-router/dist/vue-router.min.js',
-      'vuex': 'vuex/dist/vuex.min.js'
+      'vuex': 'vuex/dist/vuex.min.js',
+      'images': path.resolve(__dirname, './src/imgs'),
+      'icons': path.resolve(__dirname, './src/icons')
     }
   },
   node: {

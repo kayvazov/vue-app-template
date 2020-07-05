@@ -1,7 +1,7 @@
 {
   "name": "PWA Template",
   "short_name": "PWA",
-  "start_url": "/pwa-template/",
+  "start_url": "/",
   "lang": "ru-RU",
   "display": "fullscreen",
   "orientation": "portrait",
@@ -9,22 +9,22 @@
   "theme_color": "#222",
   "icons": [
     {
-      "src": "kenanprod.png",
+      "src": "../site-icon/app-logo.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "kenanprod.png",
+      "src": "../site-icon/app-logo.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "kenanprod.png",
+      "src": "../site-icon/app-logo.png",
       "sizes": "256x256",
       "type": "image/png"
     },
     {
-      "src": "kenanprod.png",
+      "src": "../site-icon/app-logo.png",
       "sizes": "524x524",
       "type": "image/png"
     }

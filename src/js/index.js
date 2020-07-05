@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import router from './routes/route'
 import store from './store/index.js'
-import asyncData from './store/api/asyncData'
+import asyncData from './store/utils/asyncData'
 
 
 // router hooks

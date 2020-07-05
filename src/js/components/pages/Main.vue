@@ -25,6 +25,8 @@
       {{ testStateItem }}
     </p>
     <div class="png"></div>
+    <img src="~images/technology.png" alt="">
+    <img src="~icons/technology.svg" alt="">
   </section>
 </template>
 

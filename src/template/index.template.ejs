@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title><%= htmlWebpackPlugin.options.meta.title %></title>
+	<link rel="manifest" href="<%= htmlWebpackPlugin.options.manifest %>"> <!-- Manifest -->
+	<link rel="dns-prefetch" href=""> <!-- DNS prefetch CDN/something else ( to increase performance ( ms ) ) -->
+
+	<!-- Meta tags -->
+	<meta charset="UTF-8">
+	<meta name="description" content="<%= htmlWebpackPlugin.options.meta.description %>">
+	<meta name="image" content="">
+	<meta http-equiv="x-dns-prefetch-control" content="on"> <!-- working with dns-prefetch link -->
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<!-- Twitter -->
+	<meta name="twitter:card" content="">
+	<meta name="twitter:title" content="<%= htmlWebpackPlugin.options.meta.title %>">
+	<meta name="twitter:description" content="<%= htmlWebpackPlugin.options.meta.description %>">
+	<!-- Facebook, Google+, Pinterest -->
+	<meta name="og:title" content="<%= htmlWebpackPlugin.options.meta.title %>">
+	<meta name="og:description" content="<%= htmlWebpackPlugin.options.meta.description %>">
+	<meta name="og:image" content="">
+	<meta name="og:url" content="">
+	<meta name="og:site_name" content="<%= htmlWebpackPlugin.options.meta.url %>">
+	<meta name="og:locale" content="ru_RU">
+	<meta name="og:type" content="website">
+	<!-- Other meta-tags -->
+	<meta name="theme-color" content="#000"> <!-- Mobile tab color -->
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimal-ui">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta property="og:locale" content="ru_RU">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="<%= htmlWebpackPlugin.options.meta.title %>">
+	<meta property="og:description" content="<%= htmlWebpackPlugin.options.meta.description %>">
+	<meta property="og:url" content="<%= htmlWebpackPlugin.options.meta.url %>">
+	<meta property="og:site_name" content="">
+	<!--  Favicon & PWA icons -->
+	<link rel="icon" type="image/png" sizes="192x192" href="<%= htmlWebpackPlugin.options.icon.shortcut %>">
+	<link rel="icon" type="image/png" sizes="96x96" href="<%= htmlWebpackPlugin.options.icon.shortcut %>">
+	<link rel="icon" type="image/png" sizes="16x16" href="<%= htmlWebpackPlugin.options.icon.shortcut %>">
+	<link rel="apple-touch-icon" sizes="57x57" href="<%= htmlWebpackPlugin.options.icon.apple['57x57'] %>">
+	<link rel="apple-touch-icon" sizes="60x60" href="<%= htmlWebpackPlugin.options.icon.apple['60x60'] %>">
+	<link rel="apple-touch-icon" sizes="72x72" href="<%= htmlWebpackPlugin.options.icon.apple['72x72'] %>">
+	<link rel="apple-touch-icon" sizes="76x76" href="<%= htmlWebpackPlugin.options.icon.apple['76x76'] %>">
+	<link rel="apple-touch-icon" sizes="114x114" href="<%= htmlWebpackPlugin.options.icon.apple['114x114'] %>">
+	<link rel="apple-touch-icon" sizes="120x120" href="<%= htmlWebpackPlugin.options.icon.apple['120x120'] %>">
+	<link rel="apple-touch-icon" sizes="144x144" href="<%= htmlWebpackPlugin.options.icon.apple['144x144'] %>">
+	<link rel="apple-touch-icon" sizes="152x152" href="<%= htmlWebpackPlugin.options.icon.apple['152x152'] %>">
+	<link rel="apple-touch-icon" sizes="180x180" href="<%= htmlWebpackPlugin.options.icon.apple['180x180'] %>">
+	<!-- preload vendor bundle -->
+	<link rel="preload" as="script" href="<%= htmlWebpackPlugin.files.js[0] %>">
+	<link rel="prefetch" as="script" href="<%= htmlWebpackPlugin.files.js[0] %>">
+</head>
+
+<body>
+<noscript>
+	<div class="g-js">
+		Sorry, but this site don't work without Javascript.
+		<a href="https://www.enable-javascript.com/" target="_blank">Learn how to enable Javascript</a>
+	</div>
+</noscript>
+<main id="app"></main>
+<script>
+	<!-- PWA register -->
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('service-worker.js').then(function (reg) {
+			console.log('Работает')
+		}).catch(function (err) {
+			console.log('Херня произошла', err)
+		})
+	}
+</script>
+
+</body>
+
+</html>
