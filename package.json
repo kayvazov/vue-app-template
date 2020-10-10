@@ -4,8 +4,8 @@
   "description": "",
   "main": "",
   "scripts": {
-    "dev": "webpack-dev-server --progress --port 1488 --hot --host 0.0.0.0 --config webpack.dev.config.js",
-    "build": "webpack --progress --config webpack.prod.config.js",
+    "dev": "webpack-dev-server --mode=development --progress --port 1488 --hot --host 0.0.0.0 --config webpack.dev.config.js",
+    "build": "webpack --progress --mode=production --config webpack.prod.config.js",
     "babel-upgrade": "babel-upgrade --write --install"
   },
   "author": "",
